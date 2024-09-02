@@ -27,4 +27,21 @@ Explanation: The 3 incremovable subarrays are: [8,7,6], [7,6,6], and [8,7,6,6]. 
 
 public class Q2970IncremovableSubarraysI {
     
+    public int incremovableSubarrayCount(int[] nums) {
+        
+        int n = nums.length, cnt = 0;
+
+        if (n == 0)
+            return 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+
+                if (helper(nums, i, j)) {
+                    cnt = cnt + 1;
+                }
+            }
+        }
+        return cnt;
+    }
 }
