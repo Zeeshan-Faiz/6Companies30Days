@@ -27,4 +27,17 @@ For the point (1,1): floor((50+200+200+200+200+100+100+100+100)/9) = floor(138.8
 
 public class Q661ImageSmoother{
     
+    public int[][] imageSmoother(int[][] img) {
+        int n = img.length;
+        int m = img[0].length;
+
+        int ans[][] = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                ans[i][j] = helper(img, i, j);
+            }
+        }
+        return ans;
+    }
 }
