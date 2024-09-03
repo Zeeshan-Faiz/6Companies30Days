@@ -26,8 +26,8 @@ public class Q1248CountNoOfNiceSubarrays {
         int n = nums.length, ans = 0, t = 0;
         int[] cnt = new int[n + 1];
         cnt[0] = 1;
-        for (int v : nums) {
-            t += v & 1;
+        for (int num : nums) {
+            t += num & 1;// t increase with every odd number encountered
             if (t - k >= 0) {
                 ans += cnt[t - k];
             }
