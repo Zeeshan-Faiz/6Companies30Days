@@ -15,5 +15,21 @@ Output: 0
 */
 
 public class Q453MinMovesToEqualArrayElements {
-    
+
+    public int minMoves(int[] nums) {
+
+        // find the minimum element in the array
+        int min = Integer.MAX_VALUE;
+        for (int n : nums) {
+            min = Math.min(min, n);
+        }
+
+        // iterate the array and find the sum between the difference of
+        // min element and and each element
+        int ans = 0;
+        for (int n : nums) {
+            ans += (n - min);
+        }
+        return ans;
+    }
 }
