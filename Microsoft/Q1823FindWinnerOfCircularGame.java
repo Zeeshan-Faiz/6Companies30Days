@@ -39,5 +39,14 @@ Explanation: The friends leave in this order: 5, 4, 6, 2, 3. The winner is frien
 */
 
 public class Q1823FindWinnerOfCircularGame {
-    
+
+    public int findTheWinner(int n, int k) {
+        return solve(n, k) + 1;
+    }
+
+    public int solve(int n, int k) {
+        if (n == 1)
+            return 0;
+        return (solve(n - 1, k) + k) % n;
+    }
 }
