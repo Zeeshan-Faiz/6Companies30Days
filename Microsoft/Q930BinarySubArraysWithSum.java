@@ -19,12 +19,32 @@ Output: 15
 */
 
 public class Q930BinarySubArraysWithSum {
-    
+
     public int numSubarraysWithSum(int[] nums, int goal) {
-        
+
         int a = ans(nums, goal);
         int b = ans(nums, goal - 1);
 
         return a - b;
+    }
+
+    public int ans(int[] nums, int goal) {
+
+        int left = 0, right = 0, sum = 0, count = 0;
+        //edge case
+        if (goal < 0) 
+            return 0;
+
+        while (right < nums.length) 
+        {
+            sum += nums[right]; // Add the current element to sum
+            while (sum > goal) {
+                sum = sum - nums[left];
+                left++;
+            }
+            count += (right - left + 1); // Count the number of valid subarrays ending at right
+            right++;
+        }
+        return count;
     }
 }
