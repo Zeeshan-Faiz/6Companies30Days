@@ -34,7 +34,6 @@ The product of their lengths is: 5 * 5 = 25.
 public class Q2002MaxProductOfTwoPalindromicSubSeq {
 
     int max = 0;
-
     public int maxProduct(String s) {
 
         char[] c = s.toCharArray();
