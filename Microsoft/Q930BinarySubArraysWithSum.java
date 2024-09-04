@@ -20,4 +20,11 @@ Output: 15
 
 public class Q930BinarySubArraysWithSum {
     
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        
+        int a = ans(nums, goal);
+        int b = ans(nums, goal - 1);
+
+        return a - b;
+    }
 }
