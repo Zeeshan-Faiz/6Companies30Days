@@ -23,16 +23,35 @@ public class Q1248CountNoOfNiceSubarrays {
 
     public int numberOfSubarrays(int[] nums, int k) {
 
-        int n = nums.length, ans = 0, t = 0;
-        int[] cnt = new int[n + 1];
-        cnt[0] = 1;
-        for (int num : nums) {
-            t += num & 1;// t increase with every odd number encountered
-            if (t - k >= 0) {
-                ans += cnt[t - k];
-            }
-            cnt[t]++;
+        // convert array elements to 1(for odd) or 0(for even)
+        for (int n : nums) {
+            if (n % 2 == 0)
+                n = 0;
+            else if (n % 2 != 0)
+                n = 1;
         }
-        return ans;
+        int a = ans(nums, k);
+        int b = ans(nums, k - 1);
+
+        return a - b;
+    }
+
+    public int ans(int[] nums, int goal) {
+
+        int left = 0, right = 0, sum = 0, count = 0;
+        // edge case
+        if (goal < 0)
+            return 0;
+
+        while (right < nums.length) {
+            sum = sum + (nums[right] % 2); // Add the current element to sum
+            while (sum > goal) {
+                sum = sum - (nums[left] % 2);
+                left++;
+            }
+            count += (right - left + 1); // Count the number of valid subarrays ending at right
+            right++;
+        }
+        return count;
     }
 }
