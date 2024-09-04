@@ -1,5 +1,8 @@
 package Microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 Given a string s, find two disjoint palindromic subsequences of s such that the product of their 
 lengths is maximized. The two subsequences are disjoint if they do not both pick a character at 
@@ -29,5 +32,45 @@ The product of their lengths is: 5 * 5 = 25.
 */
 
 public class Q2002MaxProductOfTwoPalindromicSubSeq {
-    
+
+    int max = 0;
+
+    public int maxProduct(String s) {
+
+        char[] c = s.toCharArray();
+        dfs(c, 0, new ArrayList<>(), new ArrayList<>());
+
+        return max;
+    }
+
+    public void dfs(char[] c, int index, List<Character> s1, List<Character> s2) {
+
+        // base case
+        if (index >= c.length) {
+            if (isPalin(s1) && isPalin(s2))
+                max = Math.max(max, s1.size() * s2.size());
+            return;
+        }
+
+        // add a character each time to s1 and then s2 and don't add the current character to both
+        s1.add(c[index]);
+        dfs(c, index + 1, s1, s2);
+        s1.remove(s1.size() - 1);// backtrack
+        s2.add(c[index]);
+        dfs(c, index + 1, s1, s2);// backtrack
+        s2.remove(s2.size() - 1);
+        dfs(c, index + 1, s1, s2);
+    }
+
+    public boolean isPalin(List<Character> str) {
+
+        int i = 0, j = str.size() - 1;
+        while (i < j) {
+            if (str.get(i) != str.get(j))
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
 }
