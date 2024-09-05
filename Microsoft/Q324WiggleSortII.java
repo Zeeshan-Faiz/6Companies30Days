@@ -18,7 +18,7 @@ Output: [2,3,1,3,1,2]
 
 public class Q324WiggleSortII {
     
-    public void wiggleSort(int[] nums) {
+    public void wiggleSortII(int[] nums) {
         
         int n = nums.length - 1;
         int[] newarr = Arrays.copyOf(nums, nums.length);
