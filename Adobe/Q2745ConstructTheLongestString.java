@@ -21,5 +21,15 @@ That string has length 14, and we can show that it is impossible to construct a 
 */
 
 public class Q2745ConstructTheLongestString {
-    
+
+    public int longestString(int x, int y, int z) {
+
+        // find the min between x and y
+        int ans = Math.min(x, y);
+        ans = ans + (ans + 1 + z);
+        if (x == y) {
+            ans = ans - 1;
+        }
+        return ans * 2;
+    }
 }
