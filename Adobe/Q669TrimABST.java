@@ -18,5 +18,23 @@ Output: [3,2,null,1]
 */
 
 public class Q669TrimABST {
-    
+
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        
+        if (root == null)
+            return null;
+
+        if (root.val < low) {
+            // answer lies in right subtree
+            return trimBST(root.right, low, high);
+        } else if (root.val > high) {
+            // answer lies in left subtree
+            return trimBST(root.left, low, high);
+        }
+
+        // check if answer should include left or right of the current root
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
+        return root;
+    }
 }
