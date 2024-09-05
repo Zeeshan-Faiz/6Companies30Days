@@ -9,5 +9,17 @@ O/P = [3,5,1,6,2,4]
 */
 
 public class Q280WiggleSort {
-    
+
+    public void wiggleSort(int[] nums) {
+
+        for (int i = 0; i < nums.length - 1; i++) 
+        {
+            // even index should have smaller elements
+            if (i % 2 == 0 && nums[i] > nums[i + 1])
+                swap(nums, i, i + 1);
+            // odd index should have larger elements
+            else if (i % 2 != 0 && nums[i] < nums[i + 1])
+                swap(nums, i, i + 1);
+        }
+    }
 }
