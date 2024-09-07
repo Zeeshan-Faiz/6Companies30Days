@@ -1,5 +1,7 @@
 package Adobe;
 
+import java.util.*;
+
 /*
 You are given an integer array matches where matches[i] = [winneri, loseri] indicates that the 
 player winneri defeated player loseri in a match.
@@ -31,5 +33,50 @@ Thus, answer[0] = [1,2,5,6] and answer[1] = [].
 */
 
 public class Q2225FindPlayersWithZeroOrOneLoss {
-    
+
+    public List<List<Integer>> findWinners(int[][] matches) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+        Set<Integer> allPlayers = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> losers = new HashSet<>();
+        Set<Integer> nonLosers = new HashSet<>();
+        Set<Integer> lostOneMatch = new HashSet<>();
+
+        // iterate and add all players and loser players
+        for (int[] match : matches) {
+            allPlayers.add(match[0]);
+            allPlayers.add(match[1]);
+            losers.add(match[1]);
+
+            int losingCount = map.getOrDefault(match[1], 0);
+            map.put(match[1], losingCount + 1);
+        }
+
+        // add all nonLoser players
+        for (Integer player : allPlayers) {
+            if (!losers.contains(player)) {
+                nonLosers.add(player);
+            }
+        }
+
+        // add players whose lost count is exactly 1
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                lostOneMatch.add(entry.getKey());
+            }
+
+        }
+
+        // sort both the list and add in answer
+        List<Integer> nonLosersList = new ArrayList<>(nonLosers);
+        Collections.sort(nonLosersList);
+        ans.add(new ArrayList<>(nonLosersList));
+
+        List<Integer> lostOneMatchList = new ArrayList<>(lostOneMatch);
+        Collections.sort(lostOneMatchList);
+        ans.add(lostOneMatchList);
+
+        return ans;
+    }
 }
