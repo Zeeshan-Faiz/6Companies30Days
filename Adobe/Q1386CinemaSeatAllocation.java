@@ -31,17 +31,16 @@ Output: 4
 */
 
 public class Q1386CinemaSeatAllocation {
-    
-    public int maxNumberOfFamilies(int n, int[][] reservedSeats) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
 
+    public int maxNumberOfFamilies(int n, int[][] reservedSeats) {
+        
+        Map<Integer, List<Integer>> map = new HashMap<>();
         for (int[] i : reservedSeats) {
             map.putIfAbsent(i[0], new ArrayList<>());
             map.get(i[0]).add(i[1]);
         }
 
         int ans = 2 * (n - map.size());
-
         for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
             List<Integer> seats = entry.getValue();
 
@@ -67,9 +66,7 @@ public class Q1386CinemaSeatAllocation {
                 ans += 1;
             if (isLeftAisle && isRightAisle && !isMiddle)
                 ans += 1;
-
         }
-
         return ans;
     }
 }
