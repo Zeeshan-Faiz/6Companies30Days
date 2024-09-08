@@ -12,7 +12,17 @@ split a four-person group, in that case, the aisle split a four-person group in 
 means to have two people on each side.
 
 Example 1:
+Input: n = 3, reservedSeats = [[1,2],[1,3],[1,8],[2,6],[3,1],[3,10]]
+Output: 4
+Explanation: The figure above shows the optimal allocation for four groups, where seats mark with blue are already reserved and contiguous seats mark with orange are for one group.
 
+Example 2:
+Input: n = 2, reservedSeats = [[2,1],[1,8],[2,6]]
+Output: 2
+
+Example 3:
+Input: n = 4, reservedSeats = [[4,3],[1,4],[4,6],[1,7]]
+Output: 4
 */
 
 public class Q1386CinemaSeatAllocation {
