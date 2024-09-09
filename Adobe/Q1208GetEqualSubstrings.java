@@ -32,6 +32,7 @@ public class Q1208GetEqualSubstrings {
         char[] at = t.toCharArray();
         int len = as.length;
 
+        //store the cost for converting each character of s to that of t
         int[] cost = new int[len];
         for (int i = 0; i < len; i++) {
             cost[i] = Math.abs(as[i] - at[i]);
