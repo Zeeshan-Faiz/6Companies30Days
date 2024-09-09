@@ -24,6 +24,31 @@ Output: 1
 Explanation: You cannot make any change, so the maximum length is 1.
 */
 
-public class Q1208GetEqualSubstrings{
+public class Q1208GetEqualSubstrings {
 
+    public int equalSubstring(String s, String t, int maxCost) {
+        
+        char[] as = s.toCharArray();
+        char[] at = t.toCharArray();
+        int len = as.length;
+
+        int[] cost = new int[len];
+        for (int i = 0; i < len; i++) {
+            cost[i] = Math.abs(as[i] - at[i]);
+        }
+
+        int max = 0;
+        int l = 0;
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            sum += cost[i];
+
+            while (sum > maxCost) {
+                sum -= cost[l++];
+            }
+
+            max = Math.max(max, i - l + 1);
+        }
+        return max;
+    }
 }
