@@ -7,7 +7,12 @@ result, return the longest word with the smallest lexicographical order. If ther
 result, return the empty string.
 
 Example 1:
+Input: s = "abpcplea", dictionary = ["ale","apple","monkey","plea"]
+Output: "apple"
 
+Example 2:
+Input: s = "abpcplea", dictionary = ["a","b","c"]
+Output: "a"
 */
 
 public class Q524LongestWordinDictionary {
