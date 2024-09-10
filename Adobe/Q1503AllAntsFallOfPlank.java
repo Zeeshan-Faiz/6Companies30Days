@@ -31,5 +31,16 @@ Explanation: All ants are going to the left, the ant at index 7 needs 7 seconds 
 */
 
 public class Q1503AllAntsFallOfPlank {
-    
+
+    public int getLastMoment(int n, int[] left, int[] right) {
+        
+        int ans = 0;
+        for (int i : left) {
+            ans = Math.max(ans, i);
+        }
+        for (int i : right) {
+            ans = Math.max(ans, n - i);
+        }
+        return ans;
+    }
 }
