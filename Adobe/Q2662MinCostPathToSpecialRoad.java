@@ -1,5 +1,9 @@
 package Adobe;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
+
 /*
 You are given an array start where start = [startX, startY] represents your initial position 
 (startX, startY) in a 2D space. You are also given the array target where target = [targetX, 
@@ -39,4 +43,45 @@ Explanation:
 
 public class Q2662MinCostPathToSpecialRoad {
     
+    public int minimumCost(int[] start, int[] target, int[][] specialRoads) {
+        int res = dist(start[0], start[1], target[0], target[1]);
+        int n = specialRoads.length;
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[] { n, 0 }); 
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int i = cur[0];
+            int costI = cur[1];
+            if (costI > dp[i]) {
+                continue; // skip costlier path
+            }
+            // i is index in specialRoads, i == n means start point
+            int x2i = (i == n ? start[0] : specialRoads[i][2]);
+            int y2i = (i == n ? start[1] : specialRoads[i][3]);
+            // check all roads
+            for (int j = 0; j < n; j++) {
+                int x1j = specialRoads[j][0];
+                int y1j = specialRoads[j][1];
+                int x2j = specialRoads[j][2];
+                int y2j = specialRoads[j][3];
+                int costJ = specialRoads[j][4];
+                // current cost from start to path i to j's end point
+                dp[j] = Math.min(dp[j], costI + dist(x2i, y2i, x2j, y2j));
+                int take = costI + costJ + dist(x2i, y2i, x1j, y1j);// take current special road
+                if (take < dp[j]) {
+                    dp[j] = take;
+                    q.offer(new int[] { j, take });
+                    res = Math.min(res, take + dist(x2j, y2j, target[0], target[1]));// update
+                }
+            }
+        }
+        return res;
+    }
+
+    private int dist(int x1, int y1, int x2, int y2) {
+        return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    }
 }
