@@ -44,8 +44,10 @@ So the answer is ["ab","cd"].
 public class Q2933HighAccessEmployees {
     
     public List<String> findHighAccessEmployees(List<List<String>> access_times) {
+        
         Map<String, List<Integer>> map = new HashMap<>();
-        for (List<String> access : access_times) {
+        for (List<String> access : access_times) 
+        {
             String employee = access.get(0);
             String time = access.get(1);
 
@@ -68,7 +70,6 @@ public class Q2933HighAccessEmployees {
                     break;
                 }
             }
-
         }
         return ans;
     }
