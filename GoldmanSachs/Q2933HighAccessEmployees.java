@@ -1,5 +1,11 @@
 package GoldmanSachs;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /*
 You are given a 2D 0-indexed array of strings, access_times, with size n. For each i 
 where 0 <= i <= n - 1, access_times[i][0] represents the name of an employee, and access_times[i][1] 
@@ -37,4 +43,40 @@ So the answer is ["ab","cd"].
 
 public class Q2933HighAccessEmployees {
     
+    public List<String> findHighAccessEmployees(List<List<String>> access_times) {
+        Map<String, List<Integer>> map = new HashMap<>();
+        for (List<String> access : access_times) {
+            String employee = access.get(0);
+            String time = access.get(1);
+
+            if (!map.containsKey(employee)) {
+                map.put(employee, new ArrayList<>());
+            }
+            map.get(employee).add(convertTime(time));
+        }
+
+        List<String> ans = new ArrayList<>();
+
+        for (String employee : map.keySet()) {
+            List<Integer> list = map.get(employee);
+            if (list.size() < 3)
+                continue;
+            Collections.sort(list);
+            for (int i = 2; i < list.size(); i++) {
+                if (list.get(i - 2) + 60 > list.get(i)) {
+                    ans.add(employee);
+                    break;
+                }
+            }
+
+        }
+        return ans;
+    }
+
+    public int convertTime(String time) {
+        char[] s = time.toCharArray();
+        int h = (s[0] - '0') * 10 + s[1] - '0';
+        int m = (s[2] - '0') * 10 + s[3] - '0';
+        return h * 60 + m;
+    }
 }
