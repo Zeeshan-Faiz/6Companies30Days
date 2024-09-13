@@ -9,8 +9,20 @@ Return a list of all possible valid combinations. The list must not contain the 
 twice, and the combinations may be returned in any order.
 
 Example 1:
+Input: k = 3, n = 7
+Output: [[1,2,4]]
+Explanation:
+1 + 2 + 4 = 7
+There are no other valid combinations.
 
-
+Example 2:
+Input: k = 3, n = 9
+Output: [[1,2,6],[1,3,5],[2,3,4]]
+Explanation:
+1 + 2 + 6 = 9
+1 + 3 + 5 = 9
+2 + 3 + 4 = 9
+There are no other valid combinations.
 */
 
 public class Q216CombinationSum {
