@@ -37,6 +37,7 @@ Explanation:
 public class Q2343QuerySmallestKthElement {
     
     public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
+        
         int l = nums[0].length();
         int[][] levelSort = new int[l + 1][nums.length];
         for (int i = 0; i < nums.length; i++) {
@@ -56,6 +57,7 @@ public class Q2343QuerySmallestKthElement {
     }
 
     private int[] countSort(String[] nums, int[] curr, int index) {
+        
         int[] count = new int[10];
         for (String num : nums) {
             int d = num.charAt(index) - '0';
