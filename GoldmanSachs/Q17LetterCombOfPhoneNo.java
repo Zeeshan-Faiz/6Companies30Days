@@ -1,5 +1,8 @@
 package GoldmanSachs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations 
 that the number could represent. Return the answer in any order.
@@ -21,4 +24,28 @@ Output: ["a","b","c"]
 
 public class Q17LetterCombOfPhoneNo {
     
+    List<String> res = new ArrayList<>();
+    String[] val = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+    public List<String> letterCombinations(String digits) {
+        
+        if (digits == null || digits.length() == 0)
+            return res;
+        helper(0, new StringBuilder(), digits);
+        return res;
+    }
+
+    private void helper(int ind, StringBuilder comb, String digits) {
+        
+        if (comb.length() == digits.length()) {
+            res.add(comb.toString());
+            return;
+        }
+        String str = val[digits.charAt(ind) - '0'];
+        for (char c : str.toCharArray()) {
+            comb.append(c);
+            helper(ind + 1, comb, digits);
+            comb.deleteCharAt(comb.length() - 1);
+        }
+    }
 }
