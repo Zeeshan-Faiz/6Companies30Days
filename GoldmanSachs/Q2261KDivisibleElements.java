@@ -1,5 +1,7 @@
 package GoldmanSachs;
 
+import java.util.HashMap;
+
 /*
 Given an integer array nums and two integers k and p, return the number of distinct subarrays, 
 which have at most k elements that are divisible by p.
@@ -31,4 +33,50 @@ Since all subarrays are distinct, the total number of subarrays satisfying all t
 
 public class Q2261KDivisibleElements {
     
+    int count = 0;
+
+    void add(int nums[], int low, int high, Node root) {
+        
+        Node temp = root;
+        for (int i = low; i <= high; i++) {
+            Node child = temp.map.getOrDefault(nums[i], null);
+            if (child == null) {
+                child = new Node();
+                count++;
+                temp.map.put(nums[i], child);
+            }
+            temp = child;
+        }
+    }
+
+    public int countDistinct(int[] nums, int k, int p) {
+
+        Node root = new Node();
+        int i = 0, j = 0, countP = 0;
+        while (j < nums.length) {
+            while (i < nums.length) {
+                if (nums[i] % p == 0)
+                    countP++;
+                if (countP == k + 1) {
+                    countP--;
+                    break;
+                }
+                i++;
+
+            }
+            if (nums[j] % p == 0)
+                countP--;
+            add(nums, j, i - 1, root);
+            j++;
+
+        }
+        return count;
+    }
+
+    class Node {
+        HashMap<Integer, Node> map;
+        Node() {
+            map = new HashMap<>();
+        }
+    }
 }
