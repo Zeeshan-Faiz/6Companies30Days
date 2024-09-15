@@ -29,4 +29,19 @@ dataStream.consec(3); // The last k integers parsed in the stream are [4,4,3].
 
 public class Q2526FindConsecutiveIntegers {
     
+    int val, k, count;
+    public Q2526FindConsecutiveIntegers(int value, int k) {
+        this.k = k;
+        this.val = value;
+        this.count = 0;
+    }
+
+    public boolean consec(int num) {
+        if (num != val)
+            count = 0;
+        else
+            count++;
+
+        return count >= k;
+    }
 }
