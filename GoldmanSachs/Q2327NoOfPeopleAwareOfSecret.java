@@ -32,5 +32,22 @@ Day 4: A forgets the secret. B, C, and D share the secret with 3 new people. (6 
 */
 
 public class Q2327NoOfPeopleAwareOfSecret {
-    
+
+    public int peopleAwareOfSecret(int n, int delay, int forget) {
+        
+        long ans = 0, num = 0;
+        int MOD = (int) 1e9 + 7;
+        long[] nums = new long[n + 1];
+        nums[1] = 1;
+        for (int i = delay - forget + 1, j = 1; j + delay <= n; i++, j++) {
+            if (i >= 1)
+                num -= nums[i];
+            num = (num + nums[j]) % MOD;
+            nums[j + delay] = (num + MOD) % MOD;
+        }
+        for (int i = n - forget + 1; i <= n; i++)
+            ans = (ans + nums[i]) % MOD;
+
+        return (int) ans;
+    }
 }
