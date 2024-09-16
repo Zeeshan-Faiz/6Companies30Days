@@ -18,7 +18,16 @@ Return an integer matrix height of size m x n where height[i][j] is cell (i, j)'
 are multiple solutions, return any of them.
 
 Example 1:
+Input: isWater = [[0,1],[0,0]]
+Output: [[1,0],[2,1]]
+Explanation: The image shows the assigned heights of each cell.
+The blue cell is the water cell, and the green cells are the land cells.
 
+Example 2:
+Input: isWater = [[0,0,1],[1,0,0],[0,0,0]]
+Output: [[1,1,0],[0,1,1],[1,2,2]]
+Explanation: A height of 2 is the maximum possible height of any assignment.
+Any height assignment that has a maximum height of 2 while still meeting the rules will also be accepted.
 */
 
 public class Q1765MapOfHighestPeak {
