@@ -1,5 +1,8 @@
 package GoldmanSachs;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /*
 You are given an integer matrix isWater of size m x n that represents a map of land and water cells.
 
@@ -31,5 +34,40 @@ Any height assignment that has a maximum height of 2 while still meeting the rul
 */
 
 public class Q1765MapOfHighestPeak {
-    
+
+    public int[][] highestPeak(int[][] isWater) {
+        
+        int m = isWater.length;
+        int n = isWater[0].length;
+        int[][] grid = new int[m][n];
+
+        Queue<int[]> q = new ArrayDeque<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (isWater[i][j] == 1) {
+                    grid[i][j] = 0;
+                    q.add(new int[] { i, j });
+                } else {
+                    grid[i][j] = -1;
+                }
+            }
+        }
+
+        int[] DIR = new int[] { 0, 1, 0, -1, 0 };
+        while (!q.isEmpty()) {
+            int[] cell = q.poll();
+            int r = cell[0];
+            int c = cell[1];
+
+            for (int i = 0; i < 4; i++) {
+                int nr = r + DIR[i];
+                int nc = c + DIR[i + 1];
+                if (nr < 0 || nr == m || nc < 0 || nc == n || grid[nr][nc] != -1)
+                    continue;
+                grid[nr][nc] = grid[r][c] + 1;
+                q.offer(new int[] { nr, nc });
+            }
+        }
+        return grid;
+    }
 }
