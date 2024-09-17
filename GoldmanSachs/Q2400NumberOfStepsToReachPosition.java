@@ -9,6 +9,9 @@ starting from startPos, such that you perform exactly k steps. Since the answer 
 large, return it modulo 109 + 7. Two ways are considered different if the order of the steps made 
 is not exactly the same.
 Note that the number line includes negative integers.
+
+Example 1:
+
 */
 
 public class Q2400NumberOfStepsToReachPosition {
