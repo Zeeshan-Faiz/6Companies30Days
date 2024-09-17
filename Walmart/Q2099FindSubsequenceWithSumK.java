@@ -29,7 +29,7 @@ Another possible subsequence is [4, 3].
 */
 
 public class Q2099FindSubsequenceWithSumK {
-    
+
     public int[] maxSubsequence(int[] nums, int k) {
         int[] resTemp = Arrays.copyOf(nums, nums.length);
         int l = 0, n = nums.length, r = n - 1;
