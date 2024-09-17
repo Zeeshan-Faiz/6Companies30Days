@@ -26,5 +26,23 @@ Explanation: It is impossible to reach position 5 from position 2 in exactly 10 
 */
 
 public class Q2400NumberOfStepsToReachPosition {
-    
+
+    private int MOD = 1000000007;
+
+    public int numberOfWays(int startPos, int endPos, int k) {
+        int d = Math.abs(startPos - endPos);
+        if (k < d || (k - d) % 2 == 1)
+            return 0;
+        if (k == d)
+            return 1;
+        int[] res = new int[k + 1];
+        res[0] = 1;
+        for (int i = 1; i <= k; i++) {
+            for (int j = i; j > 0; j--) {
+                res[j] = (res[j] + res[j - 1]) % MOD;
+            }
+        }
+        int turns = d + (k - d) / 2;
+        return res[turns];
+    }
 }
