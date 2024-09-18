@@ -1,5 +1,7 @@
 package Walmart;
 
+import java.util.Arrays;
+
 /*
 Given an array of integers nums and an integer k, return the number of unique k-diff pairs in 
 the array.
@@ -28,5 +30,32 @@ Explanation: There is one 0-diff pair in the array, (1, 1).
 */
 
 public class Q532KDiffPairsInArray {
-    
+
+    public int findPairs(int[] nums, int k) {
+        
+        int n = nums.length;
+        Arrays.sort(nums);
+        int i = 0, j = i + 1, ans = 0;
+
+        while (i < n && j < n) {
+            if (i == j)
+                j++;
+
+            else {
+                if (nums[j] - nums[i] == k) {
+                    ans++;
+                    i++;
+                    while (i < n && nums[i] == nums[i - 1]) {
+                        i++;
+                    }
+                } else if (nums[j] - nums[i] > k) {
+                    i++;
+                } else {
+                    j++;
+                }
+
+            }
+        }
+        return ans;
+    }
 }
