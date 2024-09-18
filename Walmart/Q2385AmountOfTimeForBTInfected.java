@@ -39,7 +39,7 @@ public class Q2385AmountOfTimeForBTInfected {
     }
 
     private int dfs(TreeNode root, int start) {
-        
+
         if (root == null)
             return 0;
 
@@ -60,5 +60,22 @@ public class Q2385AmountOfTimeForBTInfected {
             maxDepth = Math.max(maxDepth, dist);
         }
         return depth;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+        TreeNode(int val) {
+            this.val = val;
+        }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
