@@ -27,5 +27,38 @@ Explanation: At minute 0, the only node in the tree is infected so we return 0.
 */
 
 public class Q2385AmountOfTimeForBTInfected {
-    
+
+    int maxDepth = 0;
+
+    public int amountOfTime(TreeNode root, int start) {
+        if (root == null)
+            return 0;
+
+        dfs(root, start);
+        return maxDepth;
+    }
+
+    private int dfs(TreeNode root, int start) {
+        
+        if (root == null)
+            return 0;
+
+        int depth = 0;
+        int left = dfs(root.left, start);
+        int right = dfs(root.right, start);
+
+        if (root.val == start) {
+            depth = -1;
+            maxDepth = Math.max(left, right);
+        } 
+        else if (left >= 0 && right >= 0) {
+            depth = Math.max(left, right) + 1;
+        } 
+        else {
+            int dist = Math.abs(left) + Math.abs(right);
+            depth = Math.min(left, right) - 1;
+            maxDepth = Math.max(maxDepth, dist);
+        }
+        return depth;
+    }
 }
