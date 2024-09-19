@@ -25,5 +25,20 @@ Output: 0
 */
 
 public class Q396RotateFunction {
-    
+
+    public int maxRotateFunction(int[] nums) {
+        
+        int sum = 0;
+        int sumOfAllNums = 0;
+        for (int index = 0; index < nums.length; index++) {
+            sum += index * nums[index];
+            sumOfAllNums += nums[index];
+        }
+        int maxSum = sum;
+        for (int firstIndex = 1; firstIndex < nums.length; firstIndex++) {
+            sum = sum - sumOfAllNums + (nums[firstIndex - 1] * nums.length);
+            maxSum = maxSum < sum ? sum : maxSum;
+        }
+        return maxSum;
+    }
 }
