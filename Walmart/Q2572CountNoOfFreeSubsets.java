@@ -28,5 +28,51 @@ It can be proven that there is no more than 1 square-free subset in the given ar
 */
 
 public class Q2572CountNoOfFreeSubsets {
-    
+
+    int[] count = new int[31], masks = new int[31];
+    long[][] cache = new long[31][1 << 6];
+    long mod = 1_000_000_007;
+
+    public int squareFreeSubsets(int[] nums) {
+        
+        int[] p = { 1, 2, 3, 5, 7, 11, 13 };
+        for (int i = 0; i < 7; ++i) {
+            int mask = i == 0 ? 0 : 1 << (i - 1);
+            for (int j = i + 1; j < 7; ++j) {
+                if (p[i] * p[j] > 30)
+                    break;
+                masks[p[i] * p[j]] = mask | (1 << (j - 1));
+            }
+        }
+        masks[30] = 7;
+        for (int k : nums)
+            if (k % 4 != 0 && k % 9 != 0 && k % 25 != 0)
+                ++count[k];
+        count[1] = powof2(count[1]);
+        return (int) ((dfs(30, 0) + mod - 1) % mod);
+    }
+
+    private long dfs(int k, int mask) {
+        
+        if (k == 1)
+            return count[1];
+        if (cache[k][mask] != 0)
+            return cache[k][mask];
+        long res = dfs(k - 1, mask);
+        if (count[k] > 0 && (masks[k] & mask) == 0)
+            res = (res + (count[k] * dfs(k - 1, mask | masks[k])) % mod) % mod;
+        return cache[k][mask] = res;
+    }
+
+    private int powof2(int k) {
+        
+        long pow2 = 2, res = 1;
+        while (k > 0) {
+            if (k % 2 == 1)
+                res = (res * pow2) % mod;
+            pow2 = (pow2 * pow2) % mod;
+            k >>= 1;
+        }
+        return (int) res;
+    }
 }
