@@ -31,4 +31,22 @@ Explanation: Friend requests are made 110 -> 100, 120 -> 110, 120 -> 100.
 
 public class Q825FriendsOfAppropriateAge {
     
+    public int numFriendRequests(int[] ages) {
+        
+        int[] ageFreq = new int[121];
+        for (int age : ages) {
+            ageFreq[age]++;
+        }
+        int count = 0;
+
+        for (int i = 0; i <= 120; i++) {
+            for (int j = i / 2 + 8; j <= i; j++) {
+                count += ageFreq[i] * ageFreq[j];
+                if (i == j) {
+                    count -= ageFreq[i];
+                }
+            }
+        }
+        return count;
+    }
 }
