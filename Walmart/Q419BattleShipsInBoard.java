@@ -9,7 +9,12 @@ size. At least one horizontal or vertical cell separates between two battleships
 are no adjacent battleships).
 
 Example 1:
+Input: board = [["X",".",".","X"],[".",".",".","X"],[".",".",".","X"]]
+Output: 2
 
+Example 2:
+Input: board = [["."]]
+Output: 0
 */
 
 public class Q419BattleShipsInBoard {
