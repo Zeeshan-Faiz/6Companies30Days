@@ -1,5 +1,7 @@
 package Atlassian;
 
+import java.util.PriorityQueue;
+
 /*
 You are part of a university admissions office and need to keep track of the kth highest test 
 score from applicants in real-time. This helps to determine cut-off marks for interviews and 
@@ -40,4 +42,20 @@ kthLargest.add(9); // return 8
 
 public class Q703KthLargestElement {
     
+    final PriorityQueue<Integer> heap = new PriorityQueue<>();
+    final int k;
+    
+    public Q703KthLargestElement(int k, int[] nums) {
+        this.k = k;
+        for (int n : nums) add(n);
+    }
+
+    public int add(int val) {
+        if (heap.size() < k) heap.offer(val); //for adding the values of the array
+        else if (val > heap.peek()) {
+            heap.poll(); //remove the top element
+            heap.add(val); //add the new element
+        }
+        return heap.peek();
+    }
 }
