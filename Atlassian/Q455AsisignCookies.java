@@ -1,5 +1,7 @@
 package Atlassian;
 
+import java.util.Arrays;
+
 /*
 Assume you are an awesome parent and want to give your children some cookies. But, you should 
 give each child at most one cookie.
@@ -23,6 +25,26 @@ You have 3 cookies and their sizes are big enough to gratify all of the children
 You need to output 2.
 */
 
-public class Q455AsisignCookies{
-    
+public class Q455AsisignCookies {
+
+    public int findContentChildren(int[] g, int[] s) {
+
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int count = 0;
+        int i = g.length - 1;
+        int j = s.length - 1;
+
+        while (i >= 0 && j >= 0) {
+
+            if (s[j] >= g[i]) {
+                j--;
+                i--;
+                count++;
+            } else
+                i--;
+        }
+        return count;
+    }
 }
