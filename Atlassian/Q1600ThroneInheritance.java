@@ -1,5 +1,12 @@
 package Atlassian;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /*
 A kingdom consists of a king, his children, his grandchildren, and so on. Every once in a while, '
 someone in the family dies or a child is born.
@@ -49,5 +56,53 @@ t.getInheritanceOrder(); // return ["king", "andy", "matthew", "alex", "asha", "
 */
 
 public class Q1600ThroneInheritance {
-    
+
+    private Map<String, List<String>> tree; // To store parent to children mapping
+    private Set<String> alive;
+    private String king;
+
+    public Q1600ThroneInheritance(String kingName) {
+        this.king = kingName;
+        this.tree = new HashMap<>();
+        this.alive = new HashSet<>();
+
+        // Initialize the tree with the king
+        this.tree.put(kingName, new ArrayList<>());
+        this.alive.add(kingName);
+    }
+
+    public void birth(String parentName, String childName) {
+        // Add child to parent's list of children
+        this.tree.putIfAbsent(parentName, new ArrayList<>());
+        this.tree.get(parentName).add(childName);
+
+        // Initialize the child in the tree and mark as alive
+        this.tree.putIfAbsent(childName, new ArrayList<>());
+        this.alive.add(childName);
+    }
+
+    public void death(String name) {
+        // Mark the person as dead
+        this.alive.remove(name);
+    }
+
+    public String[] getInheritanceOrder() {
+        List<String> order = new ArrayList<>();
+        dfs(this.king, order);
+        return order.toArray(new String[0]);
+    }
+
+    private void dfs(String node, List<String> order) {
+        // If the node is alive, add it to the order
+        if (this.alive.contains(node)) {
+            order.add(node);
+        }
+
+        // Recur for all children
+        if (this.tree.containsKey(node)) {
+            for (String child : this.tree.get(node)) {
+                dfs(child, order);
+            }
+        }
+    }
 }
