@@ -1,5 +1,8 @@
 package Atlassian;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 You are given a 0-indexed string s, a string a, a string b, and an integer k.
 An index i is beautiful if:
@@ -29,5 +32,21 @@ Thus we return [0] as the result.
 */
 
 public class Q3006FindBeautifulIndices {
-    
+
+    public List<Integer> beautifulIndices(String s, String a, String b, int k) {
+        
+        List<Integer> res = new ArrayList<>();
+        int idxA = s.indexOf(a);
+        int idxB = s.indexOf(b);
+        while (idxA >= 0 && idxB >= 0) {
+            if (idxA - idxB > k) {
+                idxB = s.indexOf(b, idxB + 1);
+            } else {
+                if (Math.abs(idxA - idxB) <= k)
+                    res.add(idxA);
+                idxA = s.indexOf(a, idxA + 1);
+            }
+        }
+        return res;
+    }
 }
