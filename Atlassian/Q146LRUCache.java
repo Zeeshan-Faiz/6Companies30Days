@@ -1,5 +1,8 @@
 package Atlassian;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 Implement the LRUCache class:
@@ -33,4 +36,62 @@ lRUCache.get(4);    // return 4
 
 public class Q146LRUCache {
     
+    Node head = new Node(0, 0), tail = new Node(0, 0);
+    Map<Integer, Node> map = new HashMap<>();
+    int capacity;
+
+    public Q146LRUCache(int _capacity) {
+        capacity = _capacity;
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+
+        //if map has the key, remove node from it's current position and add to the front and return it's value
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            remove(node);
+            insert(node);
+            return node.value;
+        } else {
+            return -1;
+        }
+    }
+
+    public void put(int key, int value) {
+
+        //if map already has a given key just insert it back to the front with the new value
+        if (map.containsKey(key)) {
+            remove(map.get(key));
+        }
+        if (map.size() == capacity) {
+            remove(tail.prev); // remove least used node
+        }
+        insert(new Node(key, value));
+    }
+
+    private void remove(Node node) {
+        map.remove(node.key);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void insert(Node node) {
+        map.put(node.key, node);
+        node.next = head.next;
+        node.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
+
+    class Node {
+        Node prev, next;
+        int key, value;
+
+        Node(int _key, int _value) {
+            key = _key;
+            value = _value;
+        }
+    }
 }
