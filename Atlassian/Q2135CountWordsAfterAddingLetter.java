@@ -1,5 +1,8 @@
 package Atlassian;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /*
 You are given two 0-indexed arrays of strings startWords and targetWords. Each string consists 
 of lowercase English letters only.
@@ -35,5 +38,33 @@ Explanation:
 */
 
 public class Q2135CountWordsAfterAddingLetter {
-    
+
+    public int wordCount(String[] startWords, String[] targetWords) {
+
+        Set<Integer> startWordSet = new HashSet<>();
+        for (String word : startWords) {
+            startWordSet.add(getIntegerForWord(word));
+        }
+        int answer = 0;
+        for (String targetWord : targetWords) {
+            int targetInteger = getIntegerForWord(targetWord);
+            for (int i = 0; i < targetWord.length(); i++) {
+                int queryInteger = targetInteger ^ (1 << (targetWord.charAt(i) - 'a'));
+                if (startWordSet.contains(queryInteger)) {
+                    answer++;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+
+    private int getIntegerForWord(String word) {
+
+        int ret = 0;
+        for (int i = 0; i < word.length(); i++) {
+            ret = ret | (1 << (word.charAt(i) - 'a'));
+        }
+        return ret;
+    }
 }
