@@ -13,7 +13,27 @@ operation any number of times. Return this product modulo 109 + 7.
 Note: The answer should be the minimum product before the modulo operation is done.
 
 Example 1:
+Input: p = 1
+Output: 1
+Explanation: nums = [1].
+There is only one element, so the product equals that element.
 
+Example 2:
+Input: p = 2
+Output: 6
+Explanation: nums = [01, 10, 11].
+Any swap would either make the product 0 or stay the same.
+Thus, the array product of 1 * 2 * 3 = 6 is already minimized.
+
+Example 3:
+Input: p = 3
+Output: 1512
+Explanation: nums = [001, 010, 011, 100, 101, 110, 111]
+- In the first operation we can swap the leftmost bit of the second and fifth elements.
+    - The resulting array is [001, 110, 011, 100, 001, 110, 111].
+- In the second operation we can swap the middle bit of the third and fourth elements.
+    - The resulting array is [001, 110, 001, 110, 001, 110, 111].
+The array product is 1 * 6 * 1 * 6 * 1 * 6 * 7 = 1512, which is the minimum possible product.
 */
 
 public class Q1969MaxNonZeroProduct {
