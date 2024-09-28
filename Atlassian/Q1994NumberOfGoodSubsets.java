@@ -1,5 +1,7 @@
 package Atlassian;
 
+import java.util.Arrays;
+
 /*
 You are given an integer array nums. We call a subset of nums good if its product can be 
 represented as a product of one or more distinct prime numbers.
@@ -34,5 +36,51 @@ Explanation: The good subsets are:
 */
 
 public class Q1994NumberOfGoodSubsets {
-    
+
+    private long mod = 1000000007L;
+
+    public int numberOfGoodSubsets(int[] nums) {
+        
+        int[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+        int[] masks = new int[31];
+        Arrays.fill(masks, -1);
+        masks[1] = 0;
+        for (int i = 1; i <= 30; i++) {
+            if (masks[i] != -1) {
+                continue;
+            }
+            for (int j = 0; j < 10; j++) {
+                int prime = primes[j];
+                if (i % prime == 0 && masks[i / prime] != -1 && (masks[i / prime] & (1 << j)) == 0) {
+                    masks[i] = masks[i / prime] | (1 << j);
+                    break;
+                }
+            }
+        }
+        int[] freq = new int[31];
+        for (int i : nums) {
+            freq[i]++;
+        }
+        long[] dp = new long[1 << 10];
+        dp[0] = 1;
+        for (int i = 2; i <= 30; i++) {
+            if (freq[i] == 0 || masks[i] == -1) {
+                continue;
+            }
+            int mask = masks[i];
+            for (int s = (1 << 10) - 1; 0 <= s; s--) {
+                if ((s & mask) == 0) {
+                    dp[s | mask] = (dp[s | mask] + dp[s] * freq[i]) % mod;
+                }
+            }
+        }
+        long res = 0;
+        for (int i = 1; i < 1 << 10; i++) {
+            res = (res + dp[i]) % mod;
+        }
+        for (int i = freq[1]; 0 < i; i--) {
+            res = res * 2 % mod;
+        }
+        return (int) res;
+    }
 }
