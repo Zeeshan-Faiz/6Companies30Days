@@ -34,5 +34,22 @@ No cars will collide with each other. Thus, the total number of collisions that 
 */
 
 public class Q2211CountCollisonsOnRoad {
-    
+
+    public int countCollisions(String d) {
+        
+        char[] ar = d.toCharArray();
+        int n = ar.length;
+        int ans = 0;
+        int beg = 0, end = n - 1;
+        while (beg < n && ar[beg] == 'L')
+            beg++;
+        while (end >= 0 && ar[end] == 'R')
+            end--;
+        for (int i = beg; i <= end; i++) {
+            if (ar[i] == 'S')
+                continue;
+            ans++;
+        }
+        return ans;
+    }
 }
