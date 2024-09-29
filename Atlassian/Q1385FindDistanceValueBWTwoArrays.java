@@ -36,5 +36,34 @@ Output: 1
 */
 
 public class Q1385FindDistanceValueBWTwoArrays {
-    
+
+    public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+        
+        int n = arr1.length;
+        int i = 0, count = 0;
+        while (i < n) {
+            if (helper(arr1[i], arr2, d)) {
+                count++;
+            }
+            i++;
+        }
+        return count;
+    }
+
+    public static boolean helper(int n, int[] arr2, int d) {
+        
+        int a = arr2.length;
+        for (int i = 0; i < a; i++) {
+            if (n >= arr2[i]) {
+                if (n - arr2[i] <= d) {
+                    return false;
+                }
+            } else {
+                if (arr2[i] - n <= d) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
