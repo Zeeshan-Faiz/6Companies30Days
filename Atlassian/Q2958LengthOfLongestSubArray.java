@@ -1,5 +1,7 @@
 package Atlassian;
 
+import java.util.HashMap;
+
 /*
 You are given an integer array nums and an integer k. The frequency of an element x is the number 
 of times it occurs in an array. An array is called good if the frequency of each element in this 
@@ -27,4 +29,24 @@ It can be shown that there are no good subarrays with length more than 4.
 
 public class Q2958LengthOfLongestSubArray {
     
+    public int maxSubarrayLength(int[] nums, int k) {
+        
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        int i = 0, j = 0;
+        int ans = 0;
+        while (j < nums.length) {
+            if (freq.containsKey(nums[j])) {
+                freq.put(nums[j], freq.get(nums[j]) + 1);
+            } else {
+                freq.put(nums[j], 1);
+            }
+            while (freq.get(nums[j]) > k) {
+                freq.put(nums[i], freq.get(nums[i]) - 1);
+                i++;
+            }
+            ans = Math.max(ans, j - i + 1);
+            j++;
+        }
+        return ans;
+    }
 }
