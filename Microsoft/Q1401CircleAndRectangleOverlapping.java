@@ -8,7 +8,17 @@ Return true if the circle and rectangle are overlapped otherwise return false. I
 check if there is any point (xi, yi) that belongs to the circle and the rectangle at the same time.
 
 Example 1:
+Input: radius = 1, xCenter = 0, yCenter = 0, x1 = 1, y1 = -1, x2 = 3, y2 = 1
+Output: true
+Explanation: Circle and rectangle share the point (1,0).
 
+Example 2:
+Input: radius = 1, xCenter = 1, yCenter = 1, x1 = 1, y1 = -3, x2 = 2, y2 = -1
+Output: false
+
+Example 3:
+Input: radius = 1, xCenter = 0, yCenter = 0, x1 = -1, y1 = 0, x2 = 0, y2 = 1
+Output: true
 */
 
 public class Q1401CircleAndRectangleOverlapping {
