@@ -15,7 +15,19 @@ Implement the Solution class:
     int[] pick() Returns a random integer point [u, v] inside the space covered by one of the given rectangles.
 
 Example 1:
+Input
+["Solution", "pick", "pick", "pick", "pick", "pick"]
+[[[[-2, -2, 1, 1], [2, 2, 4, 6]]], [], [], [], [], []]
+Output
+[null, [1, -2], [1, -1], [-1, -2], [-2, -2], [0, 0]]
 
+Explanation
+Solution solution = new Solution([[-2, -2, 1, 1], [2, 2, 4, 6]]);
+solution.pick(); // return [1, -2]
+solution.pick(); // return [1, -1]
+solution.pick(); // return [-1, -2]
+solution.pick(); // return [-2, -2]
+solution.pick(); // return [0, 0]
 */
 
 public class Q497RandomPointInNonOverlapping {
