@@ -1,5 +1,8 @@
 package Microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 In LeetCode Store, there are n items to sell. Each item has a price. However, there are some special 
 offers, and a special offer consists of one or more different kinds of items with a sale price.
@@ -31,5 +34,58 @@ You cannot add more items, though only $9 for 2A ,2B and 1C.
 */
 
 public class Q638ShoppingOffers {
-    
+
+    public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
+        // filter special list
+        for (int i = 0; i < special.size(); i++) {
+            for (int j = 0; j < needs.size(); j++) {
+                if (needs.get(j) < special.get(i).get(j)) {
+                    special.remove(i);
+                    break;
+                }
+            }
+        }
+
+        // recurse
+        return f(price, special, needs, 0, Integer.MAX_VALUE, 0);
+    }
+
+    private int f(List<Integer> price, List<List<Integer>> special, List<Integer> needs, int paidSoFar, int minPrice,
+            int index) {
+        
+        if (paidSoFar > minPrice)
+            return minPrice;
+
+        if (index == special.size())
+            return Math.min(minPrice, paidSoFar + directPurchase(price, needs));
+
+        // take
+        List<Integer> offer = special.get(index);
+        if (isValid(offer, needs)) {
+            List<Integer> newNeeds = new ArrayList<>();
+            for (int i = 0; i < needs.size(); i++)
+                newNeeds.add(needs.get(i) - offer.get(i));
+            minPrice = Math.min(minPrice,
+                    f(price, special, newNeeds, paidSoFar + offer.get(needs.size()), minPrice, index));
+        }
+
+        // not take
+        minPrice = Math.min(minPrice, f(price, special, needs, paidSoFar, minPrice, index + 1));
+
+        return minPrice;
+    }
+
+    private boolean isValid(List<Integer> offer, List<Integer> needs) {
+        for (int i = 0; i < needs.size(); i++)
+            if (needs.get(i) < offer.get(i))
+                return false;
+        return true;
+    }
+
+    private int directPurchase(List<Integer> price, List<Integer> needs) {
+        int totalPrice = 0;
+        for (int i = 0; i < needs.size(); i++)
+            totalPrice += needs.get(i) * price.get(i);
+        return totalPrice;
+    }
 }
