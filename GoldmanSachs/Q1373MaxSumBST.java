@@ -27,4 +27,44 @@ Explanation: All values are negatives. Return an empty BST.
 
 public class Q1373MaxSumBST {
     
+    int greatestBSTSum = 0;
+    public int maxSumBST(TreeNode root) {
+
+        helper(root);
+        return greatestBSTSum;
+
+    }
+
+    public int helper(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int left = helper(root.left);
+        int right = helper(root.right);
+
+        if (left == Integer.MIN_VALUE || right == Integer.MIN_VALUE)
+            return Integer.MIN_VALUE;
+
+        if (root.left != null) {
+            TreeNode greatestLeft = root.left;
+            while (greatestLeft.right != null) {
+                greatestLeft = greatestLeft.right;
+            }
+            if (greatestLeft.val >= root.val)
+                return Integer.MIN_VALUE;
+        }
+        if (root.right != null) {
+            TreeNode greatestRight = root.right;
+            while (greatestRight.left != null) {
+                greatestRight = greatestRight.left;
+            }
+            if (greatestRight.val <= root.val)
+                return Integer.MIN_VALUE;
+        }
+        int sum = left + right + root.val;
+        if (sum > greatestBSTSum) {
+            greatestBSTSum = sum;
+        }
+        return sum;
+    }
 }
