@@ -26,8 +26,9 @@ Explanation: All values are negatives. Return an empty BST.
 */
 
 public class Q1373MaxSumBST {
-    
+
     int greatestBSTSum = 0;
+
     public int maxSumBST(TreeNode root) {
 
         helper(root);
@@ -66,5 +67,24 @@ public class Q1373MaxSumBST {
             greatestBSTSum = sum;
         }
         return sum;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
