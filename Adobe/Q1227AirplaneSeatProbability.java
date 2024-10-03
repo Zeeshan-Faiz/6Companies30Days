@@ -13,5 +13,14 @@ Example 1:
 */
 
 public class Q1227AirplaneSeatProbability {
-    
+
+    public double nthPersonGetsNthSeat(int n) {
+        if (n == 1) {
+            return (double) n;// if seat is one then there is one seat and the person will seat in correct
+                              // seat.
+        } else {
+            return 0.5;// for ex:if 10 seat are available the person will sit either the person seat or
+                       // the another seat, then the probability will be 1/2.
+        }
+    }
 }
