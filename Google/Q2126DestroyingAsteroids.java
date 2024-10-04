@@ -30,4 +30,23 @@ This is less than 23, so a collision would not destroy the last asteroid
 
 public class Q2126DestroyingAsteroids {
     
+    public boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        
+        int n = asteroids.length, count = 0;
+        boolean flag = true;
+        while (flag) {
+            flag = false;
+            for (int i = 0; i < n; i++) {
+                if (mass >= 100000) {
+                    return true;
+                } else if (asteroids[i] != 0 && asteroids[i] <= mass) {
+                    mass += asteroids[i];
+                    asteroids[i] = 0;
+                    count++;
+                    flag = true;
+                }
+            }
+        }
+        return count == n;
+    }
 }
