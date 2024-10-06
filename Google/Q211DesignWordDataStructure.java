@@ -27,5 +27,59 @@ wordDictionary.search("b.."); // return True
 */
 
 public class Q211DesignWordDataStructure {
-    
+
+    TrieNode root;
+
+    class TrieNode {
+        TrieNode[] nodes = new TrieNode[26];
+        boolean isWord;
+    }
+
+    public Q211DesignWordDataStructure() {
+        root = new TrieNode();
+    }
+
+    public void addWord(String word) {
+        int idx = 0;
+        TrieNode n = root;
+        while (idx < word.length()) {
+            int c = word.charAt(idx++) - 'a';
+            if (n.nodes[c] == null)
+                n.nodes[c] = new TrieNode();
+            n = n.nodes[c];
+        }
+        n.isWord = true;
+    }
+
+    public boolean search(String word) {
+        return recSearch(word, 0, root);
+    }
+
+    boolean recSearch(String word, int idx, TrieNode n) {
+        if (n == null)
+            return false;
+        if (idx == word.length())
+            return n.isWord;
+        char c = word.charAt(idx);
+        while (c != '.') {
+            if (n.nodes[c - 'a'] == null)
+                return false;
+            n = n.nodes[c - 'a'];
+
+            if (++idx == word.length())
+                return n.isWord;
+            c = word.charAt(idx);
+        }
+        if (word.charAt(idx) == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (n.nodes[i] != null) {
+                    if (recSearch(word, idx + 1, n.nodes[i]))
+                        return true;
+                }
+            }
+        } else {
+            return recSearch(word, idx + 1, n.nodes[word.charAt(idx) - 'a']);
+        }
+        return false;
+    }
 }
