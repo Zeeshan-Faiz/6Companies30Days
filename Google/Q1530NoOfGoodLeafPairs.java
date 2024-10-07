@@ -22,7 +22,7 @@ Explanation: The only good pair is [2,5].
 */
 
 public class Q1530NoOfGoodLeafPairs {
-    
+
     public int countPairs(TreeNode root, int distance) {
         int pairs[] = new int[1];
         dfs(root, distance, pairs);
@@ -30,7 +30,7 @@ public class Q1530NoOfGoodLeafPairs {
     }
 
     public int[] dfs(TreeNode root, int distance, int[] pairs) {
-        
+
         if (root == null) {
             return new int[distance + 1];
         }
@@ -60,5 +60,24 @@ public class Q1530NoOfGoodLeafPairs {
         }
 
         return res;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
