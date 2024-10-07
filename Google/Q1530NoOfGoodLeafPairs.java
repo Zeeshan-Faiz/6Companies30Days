@@ -23,4 +23,42 @@ Explanation: The only good pair is [2,5].
 
 public class Q1530NoOfGoodLeafPairs {
     
+    public int countPairs(TreeNode root, int distance) {
+        int pairs[] = new int[1];
+        dfs(root, distance, pairs);
+        return pairs[0];
+    }
+
+    public int[] dfs(TreeNode root, int distance, int[] pairs) {
+        
+        if (root == null) {
+            return new int[distance + 1];
+        }
+
+        if (root.left == null && root.right == null) {
+            int[] res = new int[distance + 1];
+            res[1] = 1;
+            return res;
+        }
+
+        int left[] = dfs(root.left, distance, pairs);
+        int right[] = dfs(root.right, distance, pairs);
+
+        int prefixsum[] = new int[right.length];
+        prefixsum[0] = right[0];
+        for (int i = 1; i < prefixsum.length; i++) {
+            prefixsum[i] = prefixsum[i - 1] + right[i];
+        }
+
+        for (int i = 1; i < left.length; i++) {
+            pairs[0] = pairs[0] + (left[i] * prefixsum[distance - i]);
+        }
+
+        int[] res = new int[distance + 1];
+        for (int i = 1; i < res.length - 1; i++) {
+            res[i + 1] = left[i] + right[i];
+        }
+
+        return res;
+    }
 }
