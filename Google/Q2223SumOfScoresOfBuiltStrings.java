@@ -32,5 +32,24 @@ The sum of the scores is 2 + 3 + 9 = 14, so we return 14.
 */
 
 public class Q2223SumOfScoresOfBuiltStrings {
-    
+
+    public long sumScores(String s) {
+        
+        char[] chrs = s.toCharArray();
+        int[] lens = new int[chrs.length];
+        long res = chrs.length;
+        int l = 0;
+        int r = 0;
+        for (int i = 1; i < chrs.length; i++) {
+            if (i <= r)
+                lens[i] = Math.min(lens[i - l], r - i + 1);
+            while (lens[i] + i < chrs.length && chrs[lens[i] + i] == chrs[lens[i]]) {
+                l = i;
+                r = lens[i] + i;
+                lens[i]++;
+            }
+            res += lens[i];
+        }
+        return res;
+    }
 }
