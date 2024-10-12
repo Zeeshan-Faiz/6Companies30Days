@@ -25,4 +25,30 @@ Explanation: The subsequence is [10, -2, -5, 20].
 
 public class Q1425ConstrainedSubsequenceSum {
     
+    public int constrainedSubsetSum(int[] nums, int k) {
+        int[] sum = new int[nums.length];
+        int[] index = new int[nums.length];
+        int head = 0;
+        int tail = 0;
+        sum[0] = nums[0];
+        index[0] = 0;
+        int maxSum = nums[0];
+        for (int i = 1; i < nums.length; ++i) {
+            while (tail <= head && index[tail] < i - k) {
+                ++tail;
+            }
+            int currentSum = nums[i];
+            if (tail <= head && sum[tail] > 0) {
+                currentSum += sum[tail];
+            }
+            maxSum = Math.max(maxSum, currentSum);
+            while (tail <= head && sum[head] <= currentSum) {
+                --head;
+            }
+            ++head;
+            sum[head] = currentSum;
+            index[head] = i;
+        }
+        return maxSum;
+    }
 }
