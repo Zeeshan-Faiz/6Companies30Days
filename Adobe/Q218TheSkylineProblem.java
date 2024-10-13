@@ -1,5 +1,9 @@
 package Adobe;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /*
 A city's skyline is the outer contour of the silhouette formed by all the buildings in that city 
 when viewed from a distance. Given the locations and heights of all the buildings, return the 
@@ -33,5 +37,56 @@ Output: [[0,3],[5,0]]
 */
 
 public class Q218TheSkylineProblem {
-    
+
+    public List<List<Integer>> getSkyline(int[][] buildings) {
+        LinkedList<int[]> res = merge(buildings, 0, buildings.length - 1);
+        List<List<Integer>> finalRes = new ArrayList<>();
+        for (int[] point : res) {
+            List<Integer> pointList = new ArrayList<>();
+            pointList.add(point[0]);
+            pointList.add(point[1]);
+            finalRes.add(pointList);
+        }
+        return finalRes;
+    }
+
+    private LinkedList<int[]> merge(int[][] buildings, int lo, int hi) {
+        LinkedList<int[]> res = new LinkedList<>();
+        if (lo > hi) {
+            return res;
+        } else if (lo == hi) {
+            res.add(new int[] { buildings[lo][0], buildings[lo][2] });
+            res.add(new int[] { buildings[lo][1], 0 });
+            return res;
+        }
+        int mid = lo + (hi - lo) / 2;
+        LinkedList<int[]> left = merge(buildings, lo, mid);
+        LinkedList<int[]> right = merge(buildings, mid + 1, hi);
+        int leftH = 0, rightH = 0;
+        while (!left.isEmpty() && !right.isEmpty()) {
+            int x1 = left.peekFirst()[0];
+            int x2 = right.peekFirst()[0];
+            int x = 0;
+            if (x1 < x2) {
+                int[] temp = left.pollFirst();
+                x = temp[0];
+                leftH = temp[1];
+            } else if (x1 > x2) {
+                int[] temp = right.pollFirst();
+                x = temp[0];
+                rightH = temp[1];
+            } else {
+                x = left.peekFirst()[0];
+                leftH = left.pollFirst()[1];
+                rightH = right.pollFirst()[1];
+            }
+            int h = Math.max(leftH, rightH);
+            if (res.isEmpty() || h != res.peekLast()[1]) {
+                res.add(new int[] { x, h });
+            }
+        }
+        res.addAll(left);
+        res.addAll(right);
+        return res;
+    }
 }
